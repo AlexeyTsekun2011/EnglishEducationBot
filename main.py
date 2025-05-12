@@ -16,7 +16,8 @@ except FileNotFoundError:
 
 @bot.message_handler(commands=["start"])
 def handle_start(message:types.Message):
-    bot.send_message(message.chat.id,"Привет!")
+    bot.send_message(message.chat.id,"Добро пожаловать в бота по изучению английского языка!\n"
+                                     "Пропиши /list для получения спика команд")
 
 @bot.message_handler(commands=["addword"])
 def handle_addword(message:types.Message):
@@ -84,24 +85,32 @@ def check_translation(message,translation,words_left):
         bot.send_message(message.chat.id,"Введите слово")
         ask_translation(message.chat.id,user_data[str(message.chat.id)],words_left)
 
+@bot.message_handler(commands=["share"])
+def handle_share(message:types.Message):
+    bot.send_message(message.chat.id,"Поделись ботом с другом\n"
+                                     "Ссылка:https://t.me/English_Study2025_bot")
 
 
 
 
-@bot.message_handler(commands=["help"])
+
+@bot.message_handler(commands=["list"])
 def handle_help(message:types.Message):
-    bot.send_message(message.chat.id,"Привет это пот на изучения английского языка\n"
-                                     "/learn - для начала твоего обучения\n"
-                                     "/start - запускает бота\n"
+    bot.send_message(message.chat.id,"Привет это бот на изучения английского языка\n\n"
+                                     "/start - запускает бота\n\n"
+                                     "/learn - для начала твоего обучения\n\n"
+                                     "/addword - добавление в бота слово для изучения,например: /addword apple, яблоко\n\n"
+                                     "/share - поделись ботом с другом\n\n"
+                                     "/learn - начать изучение определённого количества слов,например: /learn 1\n\n"
                                      "На этом пока все,скоро появятся новые функции!")
 
 @bot.message_handler(func=lambda message:True)
 def handle_all(message:types.Message):
-    if message.text.lower() == "как тебя зовут?":
+    if message.text.strip().lower() == "как тебя зовут?":
         bot.send_message(message.chat.id,"У меня нет имени")
-    elif message.text.lower() == "как у тебя дела?":
+    elif message.text.strip().lower() == "как у тебя дела?":
         bot.send_message(message.chat.id,"У меня всегда всё хорошо")
-    elif message.text.lower() == "ты обучишь меня английскому?":
+    elif message.text.strip().lower() == "ты обучишь меня английскому?":
         bot.send_message(message.chat.id,"Конечно")
 
 
